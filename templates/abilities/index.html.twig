@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AbilitiesController!{% endblock %}
+
+{% block body %}
+    <p>ability1</p>
+    {{ dump(ability1) }}
+    <p>ability2</p>
+    {{ dump(ability2) }}
+    <p>ability3</p>
+    {{ dump(ability3) }}
+    <p>ability4</p>
+    {{ dump(ability4) }}
+
+    <h1>Accediendo a valores</h1>
+
+    <p>ability1</p>
+        id  > {{ability1.id}} <br>
+        description  > {{ability1.description}} <br>
+        history > {{ability1.history}} <br>
+    <hr>
+
+    <p>ability2</p>
+        id  > {{ability2.id}} <br>
+        description  > {{ability2.description}} <br>
+        history > {{ability2.history}} <br>
+    <hr>
+
+    <p>ability3</p>
+    <ul>
+    {% for ability in ability3 %}
+        <li>
+            id: {{ability.id}},
+            description: {{ability.description}},
+            history: {{ability.history}},
+            user_id: {{ability.user.id}}
+        </li>
+    {% endfor %}
+    </ul>
+    <hr>
+
+    <p>ability4</p>
+    <table border>
+        <tr>
+            <td>#</td>
+            <td>description</td>
+            <td>history</td>
+            <td>user</td>
+        </tr>
+        {% for ability in ability4 %}
+        <tr>
+            <td>{{ability.id}} </td>
+            <td>{{ability.description}} </td>
+            <td>{{ability.history}} </td>
+            <td>{{ability.user.username}} </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}
