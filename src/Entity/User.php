@@ -55,9 +55,20 @@ class User implements UserInterface
      */
     private $abilities;
 
-    public function __construct()
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Knowledge", mappedBy="user")
+     */
+    private $knowledge;
+
+    public function __construct($username, $email, $password)
     {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->isActive = 1;
+        $this->auth = 10;
         $this->abilities = new ArrayCollection();
+        $this->knowledge = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +205,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($ability->getUser() === $this) {
                 $ability->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Knowledge[]
+     */
+    public function getKnowledge(): Collection
+    {
+        return $this->knowledge;
+    }
+
+    public function addKnowledge(Knowledge $knowledge): self
+    {
+        if (!$this->knowledge->contains($knowledge)) {
+            $this->knowledge[] = $knowledge;
+            $knowledge->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKnowledge(Knowledge $knowledge): self
+    {
+        if ($this->knowledge->contains($knowledge)) {
+            $this->knowledge->removeElement($knowledge);
+            // set the owning side to null (unless already changed)
+            if ($knowledge->getUser() === $this) {
+                $knowledge->setUser(null);
             }
         }
 

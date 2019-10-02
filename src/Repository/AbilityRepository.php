@@ -19,6 +19,31 @@ class AbilityRepository extends ServiceEntityRepository
         parent::__construct($registry, Ability::class);
     }
 
+    public function BuscarAbilityPorUser()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                SELECT ability.id, ability.description
+                FROM App\Entity\Ability ability
+                WHERE ability.user = 3
+            ');
+
+        return $query->getResult();
+    }
+
+    public function BuscarAbilityPorID($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                SELECT ability.id, ability.description
+                FROM App\Entity\Ability ability
+                WHERE ability.id = :param
+            ')
+            ->setParameter('param', $id);
+
+        return $query->getSingleResult();
+    }
+
     // /**
     //  * @return Ability[] Returns an array of Ability objects
     //  */

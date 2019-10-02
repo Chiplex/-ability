@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <pre>
+        {{ dump(ability1) }}
+    </pre>
+    <p>
+        id: {{ ability1.id}} <br>
+        description: {{ ability1.description}} <br>
+        history: {{ ability1.history}} <br>
+    </p>
+    <hr>
+    <pre>
+        {{ dump(ability2) }}
+    </pre>
+    <p>
+        id: {{ ability2.id}} <br>
+        description: {{ ability2.description}} <br>
+        history: {{ ability2.history}} <br>
+    </p>
+    <hr>
+    <pre>
+        {{ dump(ability3) }}
+    </pre>
+    <ul>
+        {% for ability in ability3 %}
+            <li>{{ability.id}}, {{ability.description}}, {{ability.history}}, {{ability.user.username}}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <pre>
+        {{ dump(ability4) }}
+    </pre>
+    <table border>
+        <tr>
+            <td>#</td>
+            <td>Descripcion</td>
+            <td>History</td>
+            <td>Username</td>
+            <td>Acciones</td>
+        </tr>
+        {% for ability in ability4 %}
+            <tr>
+                <td>{{ability.id}}</td>
+                <td>{{ability.description}}</td>
+                <td>{{ability.history}}</td>
+                <td>{{ability.user.username}}</td>
+                <td><a href="#">Editar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+<pre>
+    {{ dump(ability5) }}
+</pre>
+<pre>
+    {{ dump(ability6) }}
+</pre>
+{% endblock %}
