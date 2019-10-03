@@ -92,26 +92,26 @@ class AbilitiesController extends AbstractController
     /**
      * @Route("/abilities/store", name="search_abilities")
      */
-    // public function store(Request $request)
-    // {
-    //     $em = $this->getDoctrine()->getManager();
-    //     $ability = new Ability();
+    public function store(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ability = new Ability();
 
-    //     $form = $this->createForm(AbilityType::class, $ability);
+        $form = $this->createForm(AbilityType::class, $ability);
 
-    //     $form->handleRequest($request);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $ability = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ability = $form->getData();
 
-    //         $em->persist($ability);
-    //         $em->flush();
+            $em->persist($ability);
+            $em->flush();
 
-    //         return $this->redirectToRoute('abilities');
-    //     }
+            return $this->redirectToRoute('abilities');
+        }
 
-    //     return $this->render('abilities/create.html.twig', [
-    //         'form' => $form->createView()
-    //     ]);
-    // }
+        return $this->render('abilities/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

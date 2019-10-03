@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello KnowledgeController!{% endblock %}
+
+{% block body %}
+
+<table>
+    <th>
+        <td>#</td>
+        <td>Mencion</td>
+        <td>Usuario</td>
+    </th>
+    {% for knowledge in knowledges %}
+    <tr>
+        <td>{{ knowledge.id }}</td>
+        <td>{{ knowledge.mencion }}</td>
+        <td>{{ knowledge.user.username }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Alex/Desktop/Symphony/ability/src/Controller/KnowledgeController.php'|file_link(0) }}">src/Controller/KnowledgeController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/Alex/Desktop/Symphony/ability/templates/knowledge/index.html.twig'|file_link(0) }}">templates/knowledge/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %}
