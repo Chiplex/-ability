@@ -30,6 +30,16 @@ class KnowledgeController extends AbstractController
     }
 
     /**
+     * @Route("/knowledge/show/{knowledge}", name="knowledge_show")
+     */
+    public function show(Knowledge $knowledge)
+    {
+        return $this->render('knowledge/show.html.twig', [
+            'knowledge' => $knowledge
+        ]);
+    }
+
+    /**
      * @Route("/knowledge/create", name="knowledge_create")
      */
     public function create(Request $request)
