@@ -7,6 +7,9 @@ use App\Entity\Ability;
 use App\Form\AbilityType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AbilitiesController extends AbstractController
@@ -17,18 +20,10 @@ class AbilitiesController extends AbstractController
     public function index()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->find();
-
-        $ability = new Ability();
-        $ability->setDescription('Reposteria');
-        $ability->setUser($user);
-
-        $em->persist($user);
-        $em->persist($ability);
-        $em->flush();
+        $ability = $em->getRepository(Ability::class)->findall();
 
         return $this->render('abilities/index.html.twig', [
-            'data' => $user,
+            'data' => $ability,
         ]);
 
     //     $em = $this->getDoctrine()->getManager();
@@ -90,9 +85,9 @@ class AbilitiesController extends AbstractController
     }
 
     /**
-     * @Route("/abilities/store", name="search_abilities")
+     * @Route("/abilities/create", name="abilities_create")
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $ability = new Ability();
@@ -110,7 +105,37 @@ class AbilitiesController extends AbstractController
             return $this->redirectToRoute('abilities');
         }
 
-        return $this->render('abilities/create.html.twig', [
+        return $this->render('abilities/form.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/abilities/update/{ability}", name="ability_update")
+     */
+    public function update(Request $request, Ability $ability)
+    {
+        $form = $this->createFormBuilder($ability)
+            ->add('description')
+            ->add('history', TextareaType::class)
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'email'
+            ])
+            ->add('enviar', SubmitType::class)
+            ->getForm();
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ability = $form->getData();
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ability);
+            $em->flush();
+
+            return $this->redirectToRoute('abilities');
+        }
+        return $this->render('abilities/form.html.twig', [
             'form' => $form->createView()
         ]);
     }
