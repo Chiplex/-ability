@@ -22,10 +22,12 @@ class KnowledgeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $knowledge = $em->getRepository(Knowledge::class)->findAll();
+        $knowledgeNew = new Knowledge();
+        $form = $this->createForm(KnowledgeType::class, $knowledgeNew);
 
         return $this->render('knowledge/index.html.twig', [
-            'controller_name' => 'KnowledgeController',
-            'knowledges' => $knowledge
+            'knowledges' => $knowledge,
+            'form' => $form->createView()
         ]);
     }
 

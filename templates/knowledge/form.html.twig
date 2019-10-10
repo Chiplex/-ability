@@ -1,3 +1,15 @@
-
-    {{ form_start(form) }}
-    {{ form_end(form) }}
+{% extends "admin.html.twig" %}
+{% block title %}
+Nuevo Conocimiento
+{% endblock title %}
+{% block name %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Conocimientos</h1>
+    <a href="{{ path("knowledge_create") }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-plus"></i> Añadir conocimiento</a>
+</div>
+{% endblock name %}
+{% block content %}
+{{ form_start(form) }}
+{{ form_end(form) }}
+{% endblock content %}

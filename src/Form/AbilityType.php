@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AbilityType extends AbstractType
 {
@@ -16,13 +17,13 @@ class AbilityType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('history')
+            ->add('history', TextareaType::class)
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'email',
             ])
             ->add('enviar', SubmitType::class, [
-                'attr' => ['class' => 'btn']
+                'attr' => ['class' => 'btn btn-primary']
             ])
             
         ;

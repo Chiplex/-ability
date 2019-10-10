@@ -20,11 +20,14 @@ class MenuController extends AbstractController
             array(
                 'titulo' => 'Conocimiento',
                 'link' => 'knowledge'
+            ),
+            array(
+                'titulo' => 'Usuarios',
+                'link' => 'user'
             )
         );
         return $this->render('menu/index.html.twig', [
             'aside_menus' => $menu,
-        
         ]);
     }
 }

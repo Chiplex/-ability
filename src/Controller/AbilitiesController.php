@@ -15,39 +15,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AbilitiesController extends AbstractController
 {
     /**
-     * @Route("/abilities", name="abilities")
+     * @Route("/ability", name="abilities")
      */
     public function index()
     {
         $em = $this->getDoctrine()->getManager();
-        $ability = $em->getRepository(Ability::class)->findall();
+        $ability = $em->getRepository(Ability::class)->findAll();
+
 
         return $this->render('abilities/index.html.twig', [
-            'data' => $ability,
+            'abilities' => $ability ,
         ]);
-
-    //     $em = $this->getDoctrine()->getManager();
-    //     $user = new User();
-    //     $user->setUsername('Fernando');
-    //     $user->setEmail('fernando@mail.com');
-    //     $user->setPassword('54321');
-    //     $user->setIsActive(1);
-    //     $user->setAuth(10);
-
-    //     $em->persist($user);
-    //     $em->flush();
-
-    //     $ability = new Ability();
-    //     $ability->setDescription('Ser extrovertido');
-    //     $user = $em->getRepository(User::Class)->findOneBy(['username' => 'Alex']);
-    //     $ability->setUser($user);
-
-    //     $em->persist($ability);
-    //     $em->flush();
-
-    //     return $this->render('abilities/index.html.twig', [
-    //         'data' => $ability,
-    //     ]);
     }
 
     /**
@@ -85,7 +63,7 @@ class AbilitiesController extends AbstractController
     }
 
     /**
-     * @Route("/abilities/create", name="abilities_create")
+     * @Route("/ability/create", name="ability_create")
      */
     public function create(Request $request)
     {
@@ -137,6 +115,24 @@ class AbilitiesController extends AbstractController
         }
         return $this->render('abilities/form.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/abilities/delete/{ability}", name="ability_delete")
+     */
+    public function delete()
+    {
+        # code...
+    }
+
+    /**
+     * @Route("/abilities/show/{ability}", name="ability_show")
+     */
+    public function show(Ability $ability)
+    {
+        return $this->render('abilities/show.html.twig', [
+            'ability' => $ability
         ]);
     }
 }

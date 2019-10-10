@@ -20,19 +20,14 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $username;
-
-    /**
      * @ORM\Column(type="string", length=180, unique=true, nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
-    // private $roles = [];
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -60,15 +55,14 @@ class User implements UserInterface
      */
     private $knowledge;
 
-    public function __construct($username, $email, $password)
+    private $plainPassword;
+
+    public function __construct()
     {
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
+        $this->roles = ['ROLE_USER'];
         $this->isActive = 1;
-        $this->auth = 10;
-        $this->abilities = new ArrayCollection();
-        $this->knowledge = new ArrayCollection();
+        $this->auth = 1000;
+
     }
 
     public function getId(): ?int
@@ -83,14 +77,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
+        return $this->email;
     }
 
     public function getEmail(): ?string
@@ -134,20 +121,21 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        return $this->roles;
+        
+        // $roles = explode(",", $this->roles);
+        // // guarantee every user at least has ROLE_USER
+        // $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        // return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->roles = implode(",", $roles);
 
         return $this;
     }
-
     /**
      * @see UserInterface
      */
@@ -178,6 +166,18 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPlainPassword(): string
+    {
+        return (string) $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $password): self
+    {
+        $this->plainPassword = $password;
+
+        return $this;
     }
 
     /**

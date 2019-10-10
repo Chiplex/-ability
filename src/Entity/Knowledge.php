@@ -62,4 +62,9 @@ class Knowledge
 
         return $this;
     }
+
+    public function getDescription()
+    {
+        return 'esto es un futuro cambio';
+    }
 }

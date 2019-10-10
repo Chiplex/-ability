@@ -1,6 +1,13 @@
-{% extends "base.html.twig" %}
-{% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+{% extends "admin.html.twig" %}
+{% block title %}Nueva Habilidad{% endblock %}
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">Nueva Habilidad</h5>
+            <p class="card-text">Agrega un habilidad que hayas adquirido, escribe una breve descripción y relata como fue que lo adquiriste</p>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

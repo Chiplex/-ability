@@ -1,0 +1,12 @@
+{% extends "admin.html.twig" %}
+{% block title %}
+    {{ability.description}}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ability.description}}</h5>
+            <p class="card-text">{{ability.history}}</p>
+        </div>
+    </div>
+{% endblock content %}
